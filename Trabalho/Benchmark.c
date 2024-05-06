@@ -23,12 +23,7 @@ void ordenar(int arr[], int n) {
         count[i] = 0;
     }
 
-    // Conta a ocorrência de cada número
-    for (int i = 0; i < n; i++) {
-        count[arr[i]]++;
-    }
-
-    // Imprime os números em ordem crescente com base na contagem
+    // Imprime os números em ordem crescente 
     int k = 0;
     for (int i = 0; i <= max; i++) {
         for (int j = 0; j < count[i]; j++) {
@@ -40,37 +35,83 @@ void ordenar(int arr[], int n) {
     free(count);
 }
 
+// Funcoes para os arquivos
+
+void criar(const char *nomeArq) {
+    FILE *arquivo = fopen(nomeArq, "w");
+    if (arquivo == NULL) {
+        printf("Erro ao criar o arquivo %s\n", nomeArq);
+        return;
+    }
+
+    // Escrever conteúdo no arquivo
+    fprintf(arquivo, "Conteudo do arquivo %s\n", nomeArq);
+
+    fclose(arquivo);
+}
+
+void verificar(const char *nomeArq) {
+    // Simulando processamento
+    FILE *arquivo = fopen(nomeArq, "r");
+    if (arquivo == NULL) {
+        printf("Erro ao abrir o arquivo %s\n", nomeArq);
+        return;
+    }
+
+
+}
+
+double calcularTemp(const char *nomeArq) {
+    clock_t inicio, fim;
+    double tempo_execucao;
+
+    inicio = clock();
+    verificar(nomeArq);
+    fim = clock();
+
+    tempo_execucao = ((double)(fim - inicio)) / CLOCKS_PER_SEC;
+    return tempo_execucao;
+}
+
 int main() {
-    srand(time(NULL));
 
-    int tamanhos[] = {1000000, 10000000, 100000000, 5000000, 20000000}; // tamanhos dos conjuntos de dados
-    int num_tamanhos = sizeof(tamanhos) / sizeof(tamanhos[0]);
+    int tam[] = {1000000, 10000000, 100000000, 5000000, 20000000}; // tamanho dos conjuntos de dados
+    int num_tam = sizeof(tam) / sizeof(tam[0]);                     // tam = tamanho
 
-    for (int i = 0; i < num_tamanhos; i++) {
-        int n = tamanhos[i];
+    for (int i = 0; i < num_tam; i++) {
+        int n = tam[i];
         int *arr = (int *)malloc(n * sizeof(int));
         if (arr == NULL) {
             printf("Erro ao alocar memória.\n");
             exit(EXIT_FAILURE);
         }
 
-        // Preenche o vetor com números aleatórios entre 0 e 999
+        // Preenche o vetor com números aleatórios entre 0 e 99
         for (int j = 0; j < n; j++) {
-            arr[j] = rand() % 1000;
+            arr[j] = rand() % 100;
         }
 
-        // Realiza 3 testes de tempo
         printf("Tamanho de dados: %d\n", n);
-        for (int teste = 0; teste < 3; teste++) {
-            clock_t inicio = clock();
-            ordenar(arr, n);
-            clock_t fim = clock();
-            double tempo_execucao = ((double)(fim - inicio)) / CLOCKS_PER_SEC;
-            printf("Teste %d - Tempo de execucao: %.6f segundos\n", teste + 1, tempo_execucao);
-        }
+        clock_t inicio = clock();
+        ordenar(arr, n);
+        clock_t fim = clock();
+        double tempExc = ((double)(fim - inicio)) / CLOCKS_PER_SEC;              //tempExc = tempo de exeecução
+        printf("Teste - Tempo de execucao: %.6f segundos\n", tempExc);
 
         free(arr); // Libera a memória alocada para o vetor
         printf("\n");
+
+    }
+
+    printf("-------Agora o teste com abertura de arquivos-------\n");
+
+    const char *arquivos[] = {"arquivo1.txt", "arquivo2.txt", "arquivo3.txt"};
+    
+    // Criar e processar cada arquivo
+    for (int u = 0; u < 3; u++) {
+        criar(arquivos[u]);
+        double tempExc2 = calcularTemp(arquivos[u]);
+        printf("O arquivo %s foi processado em %.6f segundos.\n", arquivos[u], tempExc2);
     }
 
     return 0;
