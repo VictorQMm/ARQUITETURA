@@ -3,6 +3,12 @@
 #include <time.h>
 
 void ordenar(int arr[], int n) {
+    // Verifica se o array está vazio
+    if (n <= 0) {
+        printf("Erro: array vazio.\n");
+        return;
+    }
+
     // Encontra o valor máximo no array
     int max = arr[0]; // Inicializa com o primeiro elemento
     for (int i = 1; i < n; i++) {
@@ -14,7 +20,7 @@ void ordenar(int arr[], int n) {
     // Aloca dinamicamente memória para o array de contagem
     int *count = (int *)malloc((max + 1) * sizeof(int));
     if (count == NULL) {
-        printf("Erro ao alocar memória.\n");
+        printf("Erro ao alocar memoria.\n");
         exit(EXIT_FAILURE);
     }
 
@@ -23,7 +29,12 @@ void ordenar(int arr[], int n) {
         count[i] = 0;
     }
 
-    // Imprime os números em ordem crescente 
+    // Conta ocorrências de cada elemento no array original
+    for (int i = 0; i < n; i++) {
+        count[arr[i]]++;
+    }
+
+    // Reconstrói o array ordenado
     int k = 0;
     for (int i = 0; i <= max; i++) {
         for (int j = 0; j < count[i]; j++) {
@@ -58,7 +69,9 @@ void verificar(const char *nomeArq) {
         return;
     }
 
+    // Implemente a lógica de verificação do arquivo aqui
 
+    fclose(arquivo);
 }
 
 double calcularTemp(const char *nomeArq) {
@@ -75,7 +88,7 @@ double calcularTemp(const char *nomeArq) {
 
 int main() {
 
-    int tam[] = {1000000, 10000000, 100000000, 5000000, 20000000}; // tamanho dos conjuntos de dados
+    int tam[] = {110000, 1200000, 13000000, 140000000, 1500000000}; // tamanho dos conjuntos de dados
     int num_tam = sizeof(tam) / sizeof(tam[0]);                     // tam = tamanho
 
     for (int i = 0; i < num_tam; i++) {
