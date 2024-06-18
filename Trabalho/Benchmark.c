@@ -69,8 +69,6 @@ void verificar(const char *nomeArq) {
         return;
     }
 
-    // Implemente a lógica de verificação do arquivo aqui
-
     fclose(arquivo);
 }
 
