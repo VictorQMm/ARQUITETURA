@@ -8,7 +8,7 @@ int main() {
     printf("Tamanho do cilindro: ");
     scanf("%d", &cilindro);
     
-    printf("Informe a quantidade de pedidos : ");
+    printf("Informe a quantidade de pedidos: ");
     scanf("%d", &qtdCilindro); 
 
     int requisicoes[40] = {0}; 
@@ -28,13 +28,13 @@ int main() {
         printf("-- %d --", posicaoAtual);
     }
     
-     printf("\nValores marcados no array:\n");
+    printf("\nValores marcados no array:\n");
 
     for (int i = 0; i < qtdCilindro; i++) {
-        if(requisicoes[i] != 0){
-            printf("Posicao %d: XX\n",requisicoes[i]);
+        if (requisicoes[i] != 0) {
+            printf("Posicao %d: XX\n", requisicoes[i]);
+        }
     }
 
     return 0;
-    }
 }
