@@ -9,6 +9,7 @@ int main (){
     printf("Insira uma frase: ");
     fgets(frase, sizeof(frase), stdin);
 
+    len = strlen(frase);
     int j = 0, k = 0;
 
     for(int i = 0; i < len; i++){
